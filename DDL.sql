@@ -35,8 +35,8 @@ CREATE TABLE Orders (
     orderDate DATETIME NOT NULL,
     totalAmount DECIMAL(10,2) NOT NULL,
     orderStatus ENUM('Preparing', 'Completed', 'Cancelled') NOT NULL,
-    FOREIGN KEY (storeID) REFERENCES Stores(storeID),
-    FOREIGN KEY (customerID) REFERENCES Customers(customerID)
+    FOREIGN KEY (storeID) REFERENCES Stores(storeID) ON DELETE CASCADE,
+    FOREIGN KEY (customerID) REFERENCES Customers(customerID) ON DELETE CASCADE
 );
 
 CREATE TABLE Phones (
@@ -45,7 +45,7 @@ CREATE TABLE Phones (
     phoneCountryCode VARCHAR(5),
     phoneAreaCode VARCHAR(5),
     phoneNumber VARCHAR(15),
-    FOREIGN KEY (customerID) REFERENCES Customers(customerID)
+    FOREIGN KEY (customerID) REFERENCES Customers(customerID) ON DELETE CASCADE
 );
 
 CREATE TABLE Customers (
@@ -62,8 +62,8 @@ CREATE TABLE OrderItems (
     menuID INT NOT NULL,
     quantity INT NOT NULL,
     itemPrice DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY (orderID) REFERENCES Orders(orderID),
-    FOREIGN KEY (menuID) REFERENCES MenuItems(menuID)
+    FOREIGN KEY (orderID) REFERENCES Orders(orderID) ON DELETE CASCADE,
+    FOREIGN KEY (menuID) REFERENCES MenuItems(menuID) ON DELETE CASCADE
 );
 
 CREATE TABLE Positions (
@@ -78,16 +78,16 @@ CREATE TABLE Employees (
     lastName VARCHAR(50) NOT NULL,
     positionID INT NOT NULL,
     hireDate DATE NOT NULL,
-    FOREIGN KEY (storeID) REFERENCES Stores(storeID),
-    FOREIGN KEY (positionID) REFERENCES Positions(positionID)
+    FOREIGN KEY (storeID) REFERENCES Stores(storeID) ON DELETE CASCADE,
+    FOREIGN KEY (positionID) REFERENCES Positions(positionID) ON DELETE CASCADE
 );
 
 CREATE TABLE StorePositions (
     storePositionID INT AUTO_INCREMENT PRIMARY KEY,
     storeID INT NOT NULL,
     positionID INT NOT NULL,
-    FOREIGN KEY (storeID) REFERENCES Stores(storeID),
-    FOREIGN KEY (positionID) REFERENCES Positions(positionID),
+    FOREIGN KEY (storeID) REFERENCES Stores(storeID) ON DELETE CASCADE,
+    FOREIGN KEY (positionID) REFERENCES Positions(positionID) ON DELETE CASCADE,
     UNIQUE (storeID, positionID)
 );
 
