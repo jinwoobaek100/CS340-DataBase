@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS MenuItems;
 DROP TABLE IF EXISTS Stores;
 DROP TABLE IF EXISTS Positions;
 
-CREATE TABLE Stores (
+CREATE OR REPLACE TABLE Stores (
     storeID INT AUTO_INCREMENT PRIMARY KEY,
     streetAddress VARCHAR(100) NOT NULL,
     city VARCHAR(50) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE Stores (
     phoneNumber VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE MenuItems (
+CREATE OR REPLACE TABLE MenuItems (
     menuID INT AUTO_INCREMENT PRIMARY KEY,
     itemName VARCHAR(100) NOT NULL,
     description TEXT,
@@ -28,7 +28,7 @@ CREATE TABLE MenuItems (
     category ENUM('Ramen', 'Side', 'Beverage') NOT NULL
 );
 
-CREATE TABLE Orders (
+CREATE OR REPLACE TABLE Orders (
     orderID INT AUTO_INCREMENT PRIMARY KEY,
     storeID INT NOT NULL,
     customerID INT NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE Orders (
     FOREIGN KEY (customerID) REFERENCES Customers(customerID) ON DELETE CASCADE
 );
 
-CREATE TABLE Phones (
+CREATE OR REPLACE TABLE Phones (
     phoneID INT AUTO_INCREMENT PRIMARY KEY,
     customerID INT NOT NULL,
     phoneCountryCode VARCHAR(5),
@@ -48,7 +48,7 @@ CREATE TABLE Phones (
     FOREIGN KEY (customerID) REFERENCES Customers(customerID) ON DELETE CASCADE
 );
 
-CREATE TABLE Customers (
+CREATE OR REPLACE TABLE Customers (
     customerID INT AUTO_INCREMENT PRIMARY KEY,
     firstName VARCHAR(50) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE Customers (
     loyaltyPoints INT DEFAULT 0
 );
 
-CREATE TABLE OrderItems (
+CREATE OR REPLACE TABLE OrderItems (
     orderItemID INT AUTO_INCREMENT PRIMARY KEY,
     orderID INT NOT NULL,
     menuID INT NOT NULL,
@@ -66,12 +66,12 @@ CREATE TABLE OrderItems (
     FOREIGN KEY (menuID) REFERENCES MenuItems(menuID) ON DELETE CASCADE
 );
 
-CREATE TABLE Positions (
+CREATE OR REPLACE TABLE Positions (
     positionID INT AUTO_INCREMENT PRIMARY KEY,
     positionName VARCHAR(50) UNIQUE NOT NULL
 );
 
-CREATE TABLE Employees (
+CREATE OR REPLACE TABLE Employees (
     employeeID INT AUTO_INCREMENT PRIMARY KEY,
     storeID INT NOT NULL,
     firstName VARCHAR(50) NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE Employees (
     FOREIGN KEY (positionID) REFERENCES Positions(positionID) ON DELETE CASCADE
 );
 
-CREATE TABLE StorePositions (
+CREATE OR REPLACE TABLE StorePositions (
     storePositionID INT AUTO_INCREMENT PRIMARY KEY,
     storeID INT NOT NULL,
     positionID INT NOT NULL,
