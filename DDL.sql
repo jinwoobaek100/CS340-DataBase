@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS MenuItems;
 DROP TABLE IF EXISTS Stores;
 DROP TABLE IF EXISTS Positions;
 
-CREATE OR REPLACE TABLE Stores (
+CREATE TABLE Stores (
     storeID INT AUTO_INCREMENT PRIMARY KEY,
     streetAddress VARCHAR(100) NOT NULL,
     city VARCHAR(50) NOT NULL,
@@ -20,7 +20,7 @@ CREATE OR REPLACE TABLE Stores (
     phoneNumber VARCHAR(20) NOT NULL
 );
 
-CREATE OR REPLACE TABLE Customers (
+CREATE TABLE Customers (
     customerID INT AUTO_INCREMENT PRIMARY KEY,
     firstName VARCHAR(50) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
@@ -28,7 +28,7 @@ CREATE OR REPLACE TABLE Customers (
     loyaltyPoints INT DEFAULT 0
 );
 
-CREATE OR REPLACE TABLE MenuItems (
+CREATE TABLE MenuItems (
     menuID INT AUTO_INCREMENT PRIMARY KEY,
     itemName VARCHAR(100) NOT NULL,
     description TEXT,
@@ -36,7 +36,7 @@ CREATE OR REPLACE TABLE MenuItems (
     category ENUM('Ramen', 'Side', 'Beverage') NOT NULL
 );
 
-CREATE OR REPLACE TABLE Orders (
+CREATE TABLE Orders (
     orderID INT AUTO_INCREMENT PRIMARY KEY,
     storeID INT NOT NULL,
     customerID INT NOT NULL,
@@ -47,7 +47,7 @@ CREATE OR REPLACE TABLE Orders (
     FOREIGN KEY (customerID) REFERENCES Customers(customerID) ON DELETE CASCADE
 );
 
-CREATE OR REPLACE TABLE Phones (
+CREATE TABLE Phones (
     phoneID INT AUTO_INCREMENT PRIMARY KEY,
     customerID INT NOT NULL,
     phoneCountryCode VARCHAR(5),
@@ -57,22 +57,22 @@ CREATE OR REPLACE TABLE Phones (
 );
 
 
-CREATE OR REPLACE TABLE OrderItems (
+CREATE TABLE OrderItems (
     orderItemID INT AUTO_INCREMENT PRIMARY KEY,
     orderID INT NOT NULL,
-    menuID INT NOT NULL,
+    menuID INT NULL, -- Made FK nullable as per TA feedback
     quantity INT NOT NULL,
     itemPrice DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (orderID) REFERENCES Orders(orderID) ON DELETE CASCADE,
     FOREIGN KEY (menuID) REFERENCES MenuItems(menuID) ON DELETE CASCADE
 );
 
-CREATE OR REPLACE TABLE Positions (
+CREATE TABLE Positions (
     positionID INT AUTO_INCREMENT PRIMARY KEY,
     positionName VARCHAR(50) UNIQUE NOT NULL
 );
 
-CREATE OR REPLACE TABLE Employees (
+CREATE TABLE Employees (
     employeeID INT AUTO_INCREMENT PRIMARY KEY,
     storeID INT NOT NULL,
     firstName VARCHAR(50) NOT NULL,
@@ -83,7 +83,7 @@ CREATE OR REPLACE TABLE Employees (
     FOREIGN KEY (positionID) REFERENCES Positions(positionID) ON DELETE CASCADE
 );
 
-CREATE OR REPLACE TABLE StorePositions (
+CREATE TABLE StorePositions (
     storePositionID INT AUTO_INCREMENT PRIMARY KEY,
     storeID INT NOT NULL,
     positionID INT NOT NULL,

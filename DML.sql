@@ -1,3 +1,15 @@
+-- Query for add a new character functionality with dollar sign $ character being used to 
+-- denote the variables that will have data from the backend programming language.
+SELECT * FROM Customers;
+SELECT * FROM Employees;
+SELECT * FROM MenuItems;
+SELECT * FROM OrderItems WHERE orderID = $orderID;
+SELECT * FROM Orders;
+SELECT * FROM Phones;
+SELECT * FROM Positions;
+SELECT * FROM StorePositions WHERE storeID = $storeID;
+SELECT * FROM Stores;
+
 INSERT INTO Customers (firstName, lastName, email, loyaltyPoints) VALUES
 ($firstName, $lastName, $email, $loyaltyPoints);
 
@@ -24,3 +36,10 @@ INSERT INTO StorePositions (storeID, positionID) VALUES
 
 INSERT INTO Stores (streetAddress, city, state, zipCode, phoneNumber) VALUES
 ($streetAddress, $city, $state, $zipCode, $phoneNumber);
+
+UPDATE StorePositions
+SET positionID = NULL
+WHERE storeID = $selected_store;
+
+DELETE FROM StorePositions WHERE storeID = $storeID AND positionID = $positionID LIMIT 1;
+
