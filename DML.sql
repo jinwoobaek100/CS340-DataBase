@@ -41,5 +41,9 @@ UPDATE StorePositions
 SET positionID = NULL
 WHERE storeID = $selected_store;
 
-DELETE FROM StorePositions WHERE storeID = $storeID AND positionID = $positionID LIMIT 1;
+UPDATE Positions
+SET positionName = $positionName
+WHERE positionID = $selected_position;
 
+DELETE FROM StorePositions WHERE storeID = $storeID AND positionID = $positionID LIMIT 1;
+DELETE FROM Positions WHERE positionID = $positionID;
