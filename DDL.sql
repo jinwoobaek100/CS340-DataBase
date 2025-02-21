@@ -95,7 +95,7 @@ CREATE TABLE Employees (
 CREATE TABLE StorePositions (
     storePositionID INT AUTO_INCREMENT PRIMARY KEY,
     storeID INT NOT NULL,
-    positionID INT NULL,
+    positionID INT,
     FOREIGN KEY (storeID) REFERENCES Stores(storeID) ON DELETE CASCADE,
     FOREIGN KEY (positionID) REFERENCES Positions(positionID) ON DELETE CASCADE,
     UNIQUE (storeID, positionID)
