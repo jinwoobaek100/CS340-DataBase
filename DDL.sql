@@ -56,9 +56,9 @@ CREATE TABLE Orders (
 CREATE TABLE Phones (
     phoneID INT AUTO_INCREMENT PRIMARY KEY,
     customerID INT NOT NULL,
-    phoneCountryCode VARCHAR(5),
-    phoneAreaCode VARCHAR(5),
-    phoneNumber VARCHAR(15),
+    phoneCountryCode VARCHAR(5) NOT NULL,
+    phoneAreaCode VARCHAR(5) NOT NULL,
+    phoneNumber VARCHAR(15) NOT NULL,
     FOREIGN KEY (customerID) REFERENCES Customers(customerID) ON DELETE CASCADE
 );
 
@@ -66,7 +66,7 @@ CREATE TABLE Phones (
 CREATE TABLE OrderItems (
     orderItemID INT AUTO_INCREMENT PRIMARY KEY,
     orderID INT NOT NULL,
-    menuID INT NULL, -- Made FK nullable as per TA feedback
+    menuID INT, -- Made FK nullable as per TA feedback
     quantity INT NOT NULL,
     itemPrice DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (orderID) REFERENCES Orders(orderID) ON DELETE CASCADE,
