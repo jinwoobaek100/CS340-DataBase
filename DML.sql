@@ -1,10 +1,9 @@
 -- Query for add a new character functionality with dollar sign $ character being used to 
 -- denote the variables that will have data from the backend programming language.
 SELECT * FROM Customers;
-    hireDate DATE NOT NULL,
-    hireDate DATE NOT NULL,
 SELECT employeeID, firstName, lastName, hireDate, Stores.streetAddress, Positions.positionName FROM Employees
-JOIN Stores ON Stores.storeID = Employees.storeID;
+JOIN Stores ON Stores.storeID = Employees.storeID
+JOIN Positions ON Positions.positionID = Employees.positionID;
 SELECT * FROM MenuItems;
 SELECT  orderItemID, quantity, itemPrice, MenuItems.itemName, orderID FROM OrderItems WHERE orderID = $orderID
 JOIN MenuItems ON MenuItems.menuID = OrderItems.menuID;
